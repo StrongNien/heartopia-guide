@@ -9,6 +9,7 @@
       --bg-color: #f7f3e9;
       --card-bg: #ffffff;
       --primary: #7ca982;
+      --primary-hover: #65906b;
       --text-color: #4a3e3d;
       --border-color: #e2dcd0;
     }
@@ -84,28 +85,99 @@
       text-align: center;
     }
 
-    /* 篩選列 */
-    .filter-bar {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
+    /* 多選篩選區域 */
+    .filter-section {
       background: #faf8f5;
-      padding: 15px;
-      border-radius: 10px;
+      padding: 18px;
+      border-radius: 12px;
       border: 1px solid var(--border-color);
+      margin-bottom: 20px;
     }
 
-    .filter-bar input, .filter-bar select {
-      padding: 8px 12px;
+    .search-input-box {
+      margin-bottom: 15px;
+    }
+
+    .search-input-box input {
+      width: 100%;
+      max-width: 400px;
+      padding: 10px 14px;
       border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-size: 14px;
+      border-radius: 8px;
+      font-size: 15px;
       outline: none;
+      box-sizing: border-box;
     }
 
-    .filter-bar input:focus, .filter-bar select:focus {
+    .filter-group {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-title {
+      font-weight: bold;
+      font-size: 14px;
+      color: #2b4162;
+      min-width: 70px;
+      padding-top: 4px;
+    }
+
+    .filter-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .checkbox-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+
+    .checkbox-btn input {
+      margin: 0;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .checkbox-btn:hover {
       border-color: var(--primary);
+      background: #f0f7f1;
+    }
+
+    .quick-tools {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border-color);
+    }
+
+    .btn-small {
+      background: #eef2f5;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      color: #555;
+    }
+
+    .btn-small:hover {
+      background: #ddd;
     }
 
     .status-bar {
@@ -115,6 +187,7 @@
       font-weight: bold;
     }
 
+    /* 魚類卡片網格 */
     .fish-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -181,7 +254,7 @@
   </header>
 
   <div class="container">
-    <!-- 1. 關於 (預設進入分頁) -->
+    <!-- 1. 關於 -->
     <div id="about" class="tab-content active">
       <h2>關於本站</h2>
       <div class="about-box">
@@ -190,49 +263,65 @@
       </div>
     </div>
 
-    <!-- 2. 釣魚圖鑑 -->
+    <!-- 2. 釣魚圖鑑 (多選勾選介面) -->
     <div id="fish" class="tab-content">
       <h2>心動小鎮 - 釣魚圖鑑</h2>
-      <p style="font-size: 14px; color: #666;">完整收錄 ㄝㄝ 整理的 97 筆魚類資料，支援多條件篩選：</p>
+      <p style="font-size: 14px; color: #666;">完整收錄 ㄝㄝ 整理的 97 筆魚類資料，支援自由多選勾選條件：</p>
 
-      <div class="filter-bar">
-        <input type="text" id="searchInput" placeholder="搜尋魚名..." oninput="filterData()">
-        <select id="levelFilter" onchange="filterData()">
-          <option value="all">全部等級 (Lv.1 ~ 14)</option>
-          <option value="1">Lv.1</option><option value="2">Lv.2</option><option value="3">Lv.3</option>
-          <option value="4">Lv.4</option><option value="5">Lv.5</option><option value="6">Lv.6</option>
-          <option value="7">Lv.7</option><option value="8">Lv.8</option><option value="9">Lv.9</option>
-          <option value="10">Lv.10</option><option value="11">Lv.11</option><option value="12">Lv.12</option>
-          <option value="13">Lv.13</option><option value="14">Lv.14</option>
-        </select>
-        <select id="weatherFilter" onchange="filterData()">
-          <option value="all">全部天氣</option>
-          <option value="晴">晴天</option>
-          <option value="雨">雨天</option>
-          <option value="雪">雪天</option>
-          <option value="彩">彩虹</option>
-        </select>
-        <select id="timeFilter" onchange="filterData()">
-          <option value="all">全部時段</option>
-          <option value="0-6">0-6 時 (凌晨)</option>
-          <option value="6-12">6-12 時 (早晨)</option>
-          <option value="12-18">12-18 時 (下午)</option>
-          <option value="18-24">18-24 時 (夜晚)</option>
-        </select>
-        <select id="locationFilter" onchange="filterData()">
-          <option value="all">全部水域</option>
-          <option value="河流">河流 (全區)</option>
-          <option value="湖泊">湖泊 (全區)</option>
-          <option value="海洋">海洋 (全區)</option>
-        </select>
-        <select id="shadowFilter" onchange="filterData()">
-          <option value="all">全部魚影</option>
-          <option value="小">小</option>
-          <option value="中">中</option>
-          <option value="大">大</option>
-          <option value="金">金</option>
-          <option value="藍">藍</option>
-        </select>
+      <div class="filter-section">
+        <!-- 關鍵字搜尋 -->
+        <div class="search-input-box">
+          <input type="text" id="searchInput" placeholder="🔍 搜尋魚類名稱..." oninput="filterData()">
+        </div>
+
+        <!-- 1. 天氣多選 -->
+        <div class="filter-group">
+          <div class="filter-title">🌤️ 天氣：</div>
+          <div class="filter-options">
+            <label class="checkbox-btn"><input type="checkbox" name="weather" value="晴" onchange="filterData()"> 晴天</label>
+            <label class="checkbox-btn"><input type="checkbox" name="weather" value="雨" onchange="filterData()"> 雨天</label>
+            <label class="checkbox-btn"><input type="checkbox" name="weather" value="雪" onchange="filterData()"> 雪天</label>
+            <label class="checkbox-btn"><input type="checkbox" name="weather" value="彩" onchange="filterData()"> 彩虹</label>
+          </div>
+        </div>
+
+        <!-- 2. 時段多選 -->
+        <div class="filter-group">
+          <div class="filter-title">⏰ 時段：</div>
+          <div class="filter-options">
+            <label class="checkbox-btn"><input type="checkbox" name="time" value="0-6" onchange="filterData()"> 0-6時 (凌晨)</label>
+            <label class="checkbox-btn"><input type="checkbox" name="time" value="6-12" onchange="filterData()"> 6-12時 (早晨)</label>
+            <label class="checkbox-btn"><input type="checkbox" name="time" value="12-18" onchange="filterData()"> 12-18時 (下午)</label>
+            <label class="checkbox-btn"><input type="checkbox" name="time" value="18-24" onchange="filterData()"> 18-24時 (夜晚)</label>
+          </div>
+        </div>
+
+        <!-- 3. 水域地點多選 -->
+        <div class="filter-group">
+          <div class="filter-title">📍 水域：</div>
+          <div class="filter-options">
+            <label class="checkbox-btn"><input type="checkbox" name="location" value="河流" onchange="filterData()"> 河流</label>
+            <label class="checkbox-btn"><input type="checkbox" name="location" value="湖泊" onchange="filterData()"> 湖泊</label>
+            <label class="checkbox-btn"><input type="checkbox" name="location" value="海洋" onchange="filterData()"> 海洋</label>
+          </div>
+        </div>
+
+        <!-- 4. 魚影多選 -->
+        <div class="filter-group">
+          <div class="filter-title">🐟 魚影：</div>
+          <div class="filter-options">
+            <label class="checkbox-btn"><input type="checkbox" name="shadow" value="小" onchange="filterData()"> 小</label>
+            <label class="checkbox-btn"><input type="checkbox" name="shadow" value="中" onchange="filterData()"> 中</label>
+            <label class="checkbox-btn"><input type="checkbox" name="shadow" value="大" onchange="filterData()"> 大</label>
+            <label class="checkbox-btn"><input type="checkbox" name="shadow" value="金" onchange="filterData()"> 金</label>
+            <label class="checkbox-btn"><input type="checkbox" name="shadow" value="藍" onchange="filterData()"> 藍</label>
+          </div>
+        </div>
+
+        <!-- 重置工具列 -->
+        <div class="quick-tools">
+          <button class="btn-small" onclick="resetAllFilters()">🔄 清除所有選取 (顯示全部)</button>
+        </div>
       </div>
 
       <div class="status-bar" id="statusBar">載入中...</div>
@@ -304,26 +393,46 @@
       });
     }
 
+    // 取得選取的核取方塊陣列
+    function getCheckedValues(name) {
+      const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+      return Array.from(checkboxes).map(cb => cb.value);
+    }
+
     function filterData() {
       const search = document.getElementById('searchInput').value.toLowerCase();
-      const level = document.getElementById('levelFilter').value;
-      const weather = document.getElementById('weatherFilter').value;
-      const time = document.getElementById('timeFilter').value;
-      const location = document.getElementById('locationFilter').value;
-      const shadow = document.getElementById('shadowFilter').value;
+      const selectedWeathers = getCheckedValues('weather');
+      const selectedTimes = getCheckedValues('time');
+      const selectedLocations = getCheckedValues('location');
+      const selectedShadows = getCheckedValues('shadow');
 
       const filtered = allFishData.filter(fish => {
+        // 1. 名稱搜尋
         const matchSearch = fish.name.toLowerCase().includes(search);
-        const matchLevel = (level === 'all' || fish.level.toString() === level);
-        const matchWeather = (weather === 'all' || fish.weather.includes(weather));
-        const matchTime = (time === 'all' || fish.time.includes(time));
-        const matchLoc = (location === 'all' || fish.locations.some(l => l.includes(location)));
-        const matchShadow = (shadow === 'all' || fish.shadow === shadow);
 
-        return matchSearch && matchLevel && matchWeather && matchTime && matchLoc && matchShadow;
+        // 2. 天氣多選（若無勾選則不限制，有勾選則魚類必須包含「任意一個」勾選的天氣）
+        const matchWeather = selectedWeathers.length === 0 || selectedWeathers.some(w => fish.weather.includes(w));
+
+        // 3. 時段多選
+        const matchTime = selectedTimes.length === 0 || selectedTimes.some(t => fish.time.includes(t));
+
+        // 4. 地點多選
+        const matchLocation = selectedLocations.length === 0 || selectedLocations.some(loc => fish.locations.some(l => l.includes(loc)));
+
+        // 5. 魚影多選
+        const matchShadow = selectedShadows.length === 0 || selectedShadows.includes(fish.shadow);
+
+        return matchSearch && matchWeather && matchTime && matchLocation && matchShadow;
       });
 
       renderCards(filtered);
+    }
+
+    function resetAllFilters() {
+      document.getElementById('searchInput').value = '';
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach(cb => cb.checked = false);
+      renderCards(allFishData);
     }
 
     window.onload = function() {
