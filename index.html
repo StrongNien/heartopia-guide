@@ -9,7 +9,6 @@
       --bg-color: #f7f3e9;
       --card-bg: #ffffff;
       --primary: #7ca982;
-      --primary-hover: #65906b;
       --text-color: #4a3e3d;
       --border-color: #e2dcd0;
     }
@@ -187,7 +186,6 @@
       font-weight: bold;
     }
 
-    /* 魚類卡片網格 */
     .fish-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -263,10 +261,10 @@
       </div>
     </div>
 
-    <!-- 2. 釣魚圖鑑 (多選勾選介面) -->
+    <!-- 2. 釣魚圖鑑 -->
     <div id="fish" class="tab-content">
       <h2>心動小鎮 - 釣魚圖鑑</h2>
-      <p style="font-size: 14px; color: #666;">完整收錄 ㄝㄝ 整理的 97 筆魚類資料，支援自由多選勾選條件：</p>
+      <p style="font-size: 14px; color: #666;">支援等級、天氣、時段、水域細項與魚影的自由多選勾選查詢：</p>
 
       <div class="filter-section">
         <!-- 關鍵字搜尋 -->
@@ -274,7 +272,19 @@
           <input type="text" id="searchInput" placeholder="🔍 搜尋魚類名稱..." oninput="filterData()">
         </div>
 
-        <!-- 1. 天氣多選 -->
+        <!-- 1. 等級多選 -->
+        <div class="filter-group">
+          <div class="filter-title">⭐ 等級：</div>
+          <div class="filter-options">
+            <script>
+              for(let i=1; i<=14; i++) {
+                document.write(`<label class="checkbox-btn"><input type="checkbox" name="level" value="${i}" onchange="filterData()"> Lv.${i}</label>`);
+              }
+            </script>
+          </div>
+        </div>
+
+        <!-- 2. 天氣多選 -->
         <div class="filter-group">
           <div class="filter-title">🌤️ 天氣：</div>
           <div class="filter-options">
@@ -285,28 +295,43 @@
           </div>
         </div>
 
-        <!-- 2. 時段多選 -->
+        <!-- 3. 時段多選 -->
         <div class="filter-group">
           <div class="filter-title">⏰ 時段：</div>
           <div class="filter-options">
-            <label class="checkbox-btn"><input type="checkbox" name="time" value="0-6" onchange="filterData()"> 0-6時 (凌晨)</label>
-            <label class="checkbox-btn"><input type="checkbox" name="time" value="6-12" onchange="filterData()"> 6-12時 (早晨)</label>
-            <label class="checkbox-btn"><input type="checkbox" name="time" value="12-18" onchange="filterData()"> 12-18時 (下午)</label>
-            <label class="checkbox-btn"><input type="checkbox" name="time" value="18-24" onchange="filterData()"> 18-24時 (夜晚)</label>
+            <label class="checkbox-btn"><input type="checkbox" name="time" value="0-6" onchange="filterData()"> 0-6時</label>
+            <label class="checkbox-btn"><input type="checkbox" name="time" value="6-12" onchange="filterData()"> 6-12時</label>
+            <label class="checkbox-btn"><input type="checkbox" name="time" value="12-18" onchange="filterData()"> 12-18時</label>
+            <label class="checkbox-btn"><input type="checkbox" name="time" value="18-24" onchange="filterData()"> 18-24時</label>
           </div>
         </div>
 
-        <!-- 3. 水域地點多選 -->
+        <!-- 4. 水域細項多選 -->
         <div class="filter-group">
           <div class="filter-title">📍 水域：</div>
           <div class="filter-options">
-            <label class="checkbox-btn"><input type="checkbox" name="location" value="河流" onchange="filterData()"> 河流</label>
-            <label class="checkbox-btn"><input type="checkbox" name="location" value="湖泊" onchange="filterData()"> 湖泊</label>
-            <label class="checkbox-btn"><input type="checkbox" name="location" value="海洋" onchange="filterData()"> 海洋</label>
+            <span style="font-size:12px; color:#555; width:100%; margin-top:2px; font-weight:bold;">河流：</span>
+            <label class="checkbox-btn"><input type="checkbox" name="location" value="河流-巨木" onchange="filterData()"> 巨木</label>
+            <label class="checkbox-btn"><input type="checkbox" name="location" value="河流-淺水" onchange="filterData()"> 淺水</label>
+            <label class="checkbox-btn"><input type="checkbox" name="location" value="河流-霞光" onchange="filterData()"> 霞光</label>
+            <label class="checkbox-btn"><input type="checkbox" name="location" value="河流-靜" onchange="filterData()"> 靜</label>
+            
+            <span style="font-size:12px; color:#555; width:100%; margin-top:4px; font-weight:bold;">湖泊：</span>
+            <label class="checkbox-btn"><input type="checkbox" name="location" value="湖泊-城郊" onchange="filterData()"> 城郊</label>
+            <label class="checkbox-btn"><input type="checkbox" name="location" value="湖泊-草原" onchange="filterData()"> 草原</label>
+            <label class="checkbox-btn"><input type="checkbox" name="location" value="湖泊-森林" onchange="filterData()"> 森林</label>
+            <label class="checkbox-btn"><input type="checkbox" name="location" value="湖泊-溫泉山" onchange="filterData()"> 溫泉山</label>
+
+            <span style="font-size:12px; color:#555; width:100%; margin-top:4px; font-weight:bold;">海洋：</span>
+            <label class="checkbox-btn"><input type="checkbox" name="location" value="海洋-緩風" onchange="filterData()"> 緩風</label>
+            <label class="checkbox-btn"><input type="checkbox" name="location" value="海洋-東" onchange="filterData()"> 東</label>
+            <label class="checkbox-btn"><input type="checkbox" name="location" value="海洋-鯨魚" onchange="filterData()"> 鯨魚</label>
+            <label class="checkbox-btn"><input type="checkbox" name="location" value="海洋-舊" onchange="filterData()"> 舊</label>
+            <label class="checkbox-btn"><input type="checkbox" name="location" value="海洋-海釣" onchange="filterData()"> 海釣</label>
           </div>
         </div>
 
-        <!-- 4. 魚影多選 -->
+        <!-- 5. 魚影多選 -->
         <div class="filter-group">
           <div class="filter-title">🐟 魚影：</div>
           <div class="filter-options">
@@ -320,7 +345,7 @@
 
         <!-- 重置工具列 -->
         <div class="quick-tools">
-          <button class="btn-small" onclick="resetAllFilters()">🔄 清除所有選取 (顯示全部)</button>
+          <button class="btn-small" onclick="resetAllFilters()">🔄 清除所有勾選 (顯示全部)</button>
         </div>
       </div>
 
@@ -393,7 +418,6 @@
       });
     }
 
-    // 取得選取的核取方塊陣列
     function getCheckedValues(name) {
       const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
       return Array.from(checkboxes).map(cb => cb.value);
@@ -401,28 +425,22 @@
 
     function filterData() {
       const search = document.getElementById('searchInput').value.toLowerCase();
+      const selectedLevels = getCheckedValues('level');
       const selectedWeathers = getCheckedValues('weather');
       const selectedTimes = getCheckedValues('time');
       const selectedLocations = getCheckedValues('location');
       const selectedShadows = getCheckedValues('shadow');
 
       const filtered = allFishData.filter(fish => {
-        // 1. 名稱搜尋
         const matchSearch = fish.name.toLowerCase().includes(search);
-
-        // 2. 天氣多選（若無勾選則不限制，有勾選則魚類必須包含「任意一個」勾選的天氣）
+        
+        const matchLevel = selectedLevels.length === 0 || selectedLevels.includes(fish.level.toString());
         const matchWeather = selectedWeathers.length === 0 || selectedWeathers.some(w => fish.weather.includes(w));
-
-        // 3. 時段多選
         const matchTime = selectedTimes.length === 0 || selectedTimes.some(t => fish.time.includes(t));
-
-        // 4. 地點多選
-        const matchLocation = selectedLocations.length === 0 || selectedLocations.some(loc => fish.locations.some(l => l.includes(loc)));
-
-        // 5. 魚影多選
+        const matchLocation = selectedLocations.length === 0 || selectedLocations.some(loc => fish.locations.includes(loc));
         const matchShadow = selectedShadows.length === 0 || selectedShadows.includes(fish.shadow);
 
-        return matchSearch && matchWeather && matchTime && matchLocation && matchShadow;
+        return matchSearch && matchLevel && matchWeather && matchTime && matchLocation && matchShadow;
       });
 
       renderCards(filtered);
