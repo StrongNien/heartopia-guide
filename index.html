@@ -84,7 +84,7 @@
       text-align: center;
     }
 
-    /* 篩選器樣式 */
+    /* 篩選列 */
     .filter-bar {
       display: flex;
       gap: 10px;
@@ -108,10 +108,18 @@
       border-color: var(--primary);
     }
 
-    /* 列表卡片網格 */
+    /* 統計列 */
+    .status-bar {
+      margin-bottom: 15px;
+      font-size: 14px;
+      color: #666;
+      font-weight: bold;
+    }
+
+    /* 卡片網格 */
     .fish-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 15px;
     }
 
@@ -134,9 +142,10 @@
     .fish-level {
       font-size: 12px;
       background: #eef2f5;
-      padding: 2px 6px;
+      padding: 2px 8px;
       border-radius: 4px;
-      color: #666;
+      color: #3d5a80;
+      font-weight: bold;
     }
 
     .fish-info {
@@ -164,7 +173,7 @@
 <body>
 
   <header>
-    <h1>?? 心動小鎮攻略與圖鑑</h1>
+    <h1>🏡 心動小鎮攻略與圖鑑</h1>
     <nav>
       <button class="nav-btn active" onclick="switchTab('about')">關於</button>
       <button class="nav-btn" onclick="switchTab('fish')">釣魚圖鑑</button>
@@ -174,25 +183,29 @@
   </header>
 
   <div class="container">
-    <!-- 1. 關於 (預設進入頁面) -->
+    <!-- 1. 關於 (預設分頁) -->
     <div id="about" class="tab-content active">
       <h2>關於本站</h2>
       <div class="about-box">
-        <p>? <strong>心動小萌星 &amp; 夜悠兒</strong> 製作 ?</p>
+        <p>✨ <strong>心動小萌星 &amp; 夜悠兒</strong> 製作 ✨</p>
         <p>專為心動小鎮玩家打造的貼心攻略與行事曆小幫手。</p>
       </div>
     </div>
 
-    <!-- 2. 釣魚圖鑑 (讀取 JSON 動態篩選) -->
+    <!-- 2. 釣魚圖鑑 -->
     <div id="fish" class="tab-content">
       <h2>心動小鎮 - 釣魚圖鑑</h2>
-      <p style="font-size: 14px; color: #666;">依據 ㄝㄝ 的 Excel 資料整理，提供多條件精確篩選：</p>
+      <p style="font-size: 14px; color: #666;">完整收錄 ㄝㄝ 整理的 97 筆魚類資料：</p>
 
       <div class="filter-bar">
-        <input type="text" id="searchInput" placeholder="搜尋魚類名稱..." oninput="filterData()">
+        <input type="text" id="searchInput" placeholder="搜尋魚名..." oninput="filterData()">
         <select id="levelFilter" onchange="filterData()">
-          <option value="all">全部等級</option>
-          <option value="1">等級 1</option>
+          <option value="all">全部等級 (Lv.1 ~ 14)</option>
+          <option value="1">Lv.1</option><option value="2">Lv.2</option><option value="3">Lv.3</option>
+          <option value="4">Lv.4</option><option value="5">Lv.5</option><option value="6">Lv.6</option>
+          <option value="7">Lv.7</option><option value="8">Lv.8</option><option value="9">Lv.9</option>
+          <option value="10">Lv.10</option><option value="11">Lv.11</option><option value="12">Lv.12</option>
+          <option value="13">Lv.13</option><option value="14">Lv.14</option>
         </select>
         <select id="weatherFilter" onchange="filterData()">
           <option value="all">全部天氣</option>
@@ -202,17 +215,17 @@
           <option value="彩">彩虹</option>
         </select>
         <select id="timeFilter" onchange="filterData()">
-          <option value="all">全部時間</option>
-          <option value="0-6">0-6 時</option>
-          <option value="6-12">6-12 時</option>
-          <option value="12-18">12-18 時</option>
-          <option value="18-24">18-24 時</option>
+          <option value="all">全部時段</option>
+          <option value="0-6">0-6 時 (凌晨)</option>
+          <option value="6-12">6-12 時 (早晨)</option>
+          <option value="12-18">12-18 時 (下午)</option>
+          <option value="18-24">18-24 時 (夜晚)</option>
         </select>
         <select id="locationFilter" onchange="filterData()">
-          <option value="all">全部地點水域</option>
-          <option value="河流">河流</option>
-          <option value="湖泊">湖泊</option>
-          <option value="海洋">海洋</option>
+          <option value="all">全部水域</option>
+          <option value="河流">河流 (全區)</option>
+          <option value="湖泊">湖泊 (全區)</option>
+          <option value="海洋">海洋 (全區)</option>
         </select>
         <select id="shadowFilter" onchange="filterData()">
           <option value="all">全部魚影</option>
@@ -224,13 +237,14 @@
         </select>
       </div>
 
+      <div class="status-bar" id="statusBar">載入中...</div>
       <div id="fishGrid" class="fish-grid"></div>
     </div>
 
     <!-- 3. 愛好圖鑑 -->
     <div id="hobby" class="tab-content">
       <h2>愛好圖鑑</h2>
-      <div class="coming-soon">?? 創建中，敬請期待！</div>
+      <div class="coming-soon">🚧 創建中，敬請期待！</div>
     </div>
 
     <!-- 4. 木石天氣行事曆 -->
@@ -255,20 +269,22 @@
       event.currentTarget.classList.add('active');
     }
 
-    // 載入 JSON 資料
     async function loadFishData() {
       try {
         const response = await fetch('fishData.json');
         allFishData = await response.json();
         renderCards(allFishData);
       } catch (error) {
-        console.error('無法讀取 fishData.json:', error);
+        document.getElementById('statusBar').innerText = '無法載入 fishData.json，請確認檔案位置。';
       }
     }
 
     function renderCards(data) {
       const grid = document.getElementById('fishGrid');
+      const statusBar = document.getElementById('statusBar');
       grid.innerHTML = '';
+
+      statusBar.innerText = `顯示筆數：${data.length} / ${allFishData.length} 筆魚類`;
 
       if (data.length === 0) {
         grid.innerHTML = '<p style="color: #888; grid-column: 1/-1; text-align: center;">沒有符合條件的魚類資料</p>';
@@ -278,12 +294,13 @@
       data.forEach(fish => {
         const card = document.createElement('div');
         card.className = 'fish-card';
+        const locText = fish.locations.length > 0 ? fish.locations.join('、') : '無資料/特殊點';
         card.innerHTML = `
           <h3>${fish.name} <span class="fish-level">Lv.${fish.level}</span></h3>
-          <p class="fish-info">??? 天氣：${fish.weather.join(', ')}</p>
-          <p class="fish-info">? 時間：${fish.time.join(', ')}</p>
-          <p class="fish-info">?? 地點：${fish.locations.join('、')}</p>
-          <p class="fish-info">?? 魚影：<strong>${fish.shadow}</strong></p>
+          <p class="fish-info">🌤️ 天氣：${fish.weather.join(', ')}</p>
+          <p class="fish-info">⏰ 時間：${fish.time.join(', ')}</p>
+          <p class="fish-info">📍 地點：${locText}</p>
+          <p class="fish-info">🐟 魚影：<strong>${fish.shadow}</strong></p>
         `;
         grid.appendChild(card);
       });
