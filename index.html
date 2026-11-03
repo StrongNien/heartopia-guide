@@ -198,6 +198,27 @@
       border-radius: 10px;
       padding: 15px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 新增：圖片顯示容器 */
+    .fish-img-container {
+      width: 100%;
+      height: 140px;
+      background-color: #f4f7f6;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .fish-img-container img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
     }
 
     .fish-card h3 {
@@ -407,7 +428,14 @@
         const card = document.createElement('div');
         card.className = 'fish-card';
         const locText = fish.locations.length > 0 ? fish.locations.join('、') : '無資料/特殊點';
+        
+        // 圖片自動路徑：images/中文魚名.webp
+        const imgPath = `images/${fish.name}.webp`;
+
         card.innerHTML = `
+          <div class="fish-img-container">
+            <img src="${imgPath}" alt="${fish.name}" onerror="this.onerror=null; this.src='https://api.iconify.design/lucide:fish.svg?color=%237ca982';">
+          </div>
           <h3>${fish.name} <span class="fish-level">Lv.${fish.level}</span></h3>
           <p class="fish-info">🌤️ 天氣：${fish.weather.join(', ')}</p>
           <p class="fish-info">⏰ 時間：${fish.time.join(', ')}</p>
