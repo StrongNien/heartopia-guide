@@ -202,7 +202,6 @@
       flex-direction: column;
     }
 
-    /* 新增：圖片顯示容器 */
     .fish-img-container {
       width: 100%;
       height: 140px;
@@ -244,6 +243,46 @@
       margin: 4px 0;
     }
 
+    /* 新增：行事曆月份切換按鈕樣式 */
+    .month-switch {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 15px 0 20px 0;
+    }
+
+    .month-btn {
+      background-color: #faf8f5;
+      border: 2px solid var(--border-color);
+      padding: 8px 22px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: bold;
+      color: var(--text-color);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .month-btn:hover {
+      border-color: var(--primary);
+      background-color: #f0f7f1;
+    }
+
+    .month-btn.active {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 3px 8px rgba(124, 169, 130, 0.3);
+    }
+
+    .calendar-panel {
+      display: none;
+    }
+
+    .calendar-panel.active {
+      display: block;
+    }
+
     .calendar-img {
       max-width: 100%;
       height: auto;
@@ -265,10 +304,10 @@
   <header>
     <h1>🏡 心動小鎮攻略與圖鑑</h1>
     <nav>
-      <button class="nav-btn active" onclick="switchTab('about')">關於</button>
-      <button class="nav-btn" onclick="switchTab('fish')">釣魚圖鑑</button>
-      <button class="nav-btn" onclick="switchTab('hobby')">愛好圖鑑</button>
-      <button class="nav-btn" onclick="switchTab('calendar')">木石天氣行事曆</button>
+      <button class="nav-btn active" onclick="switchTab('about', this)">關於</button>
+      <button class="nav-btn" onclick="switchTab('fish', this)">釣魚圖鑑</button>
+      <button class="nav-btn" onclick="switchTab('hobby', this)">愛好圖鑑</button>
+      <button class="nav-btn" onclick="switchTab('calendar', this)">木石天氣行事曆</button>
     </nav>
   </header>
 
@@ -288,12 +327,10 @@
       <p style="font-size: 14px; color: #666;">支援等級、天氣、時段、水域細項與魚影的自由多選勾選查詢：</p>
 
       <div class="filter-section">
-        <!-- 關鍵字搜尋 -->
         <div class="search-input-box">
           <input type="text" id="searchInput" placeholder="🔍 搜尋魚類名稱..." oninput="filterData()">
         </div>
 
-        <!-- 1. 等級多選 -->
         <div class="filter-group">
           <div class="filter-title">⭐ 等級：</div>
           <div class="filter-options">
@@ -305,7 +342,6 @@
           </div>
         </div>
 
-        <!-- 2. 天氣多選 -->
         <div class="filter-group">
           <div class="filter-title">🌤️ 天氣：</div>
           <div class="filter-options">
@@ -316,7 +352,6 @@
           </div>
         </div>
 
-        <!-- 3. 時段多選 -->
         <div class="filter-group">
           <div class="filter-title">⏰ 時段：</div>
           <div class="filter-options">
@@ -327,7 +362,6 @@
           </div>
         </div>
 
-        <!-- 4. 水域細項多選 -->
         <div class="filter-group">
           <div class="filter-title">📍 水域：</div>
           <div class="filter-options">
@@ -352,7 +386,6 @@
           </div>
         </div>
 
-        <!-- 5. 魚影多選 -->
         <div class="filter-group">
           <div class="filter-title">🐟 魚影：</div>
           <div class="filter-options">
@@ -364,7 +397,6 @@
           </div>
         </div>
 
-        <!-- 重置工具列 -->
         <div class="quick-tools">
           <button class="btn-small" onclick="resetAllFilters()">🔄 清除所有勾選 (顯示全部)</button>
         </div>
@@ -380,18 +412,34 @@
       <div class="coming-soon">🚧 創建中，敬請期待！</div>
     </div>
 
-    <!-- 4. 木石天氣行事曆 -->
+    <!-- 4. 木石天氣行事曆（已更新為 11月 / 12月 切換模式） -->
     <div id="calendar" class="tab-content" style="text-align: center;">
-      <h2>11月 木石與天氣行事曆</h2>
-      <p>收錄每日精確木石採集點、天氣、流星雨與雪景時段</p>
-      <img src="calendar.jpg" alt="11月木石天氣行事曆" class="calendar-img">
+      <h2>木石與天氣行事曆</h2>
+      <p style="color: #666; font-size: 14px;">收錄每日精確木石採集點、天氣、流星雨與雪景時段</p>
+      
+      <!-- 月份切換按鈕 -->
+      <div class="month-switch">
+        <button class="month-btn active" onclick="switchMonth('nov', this)">📅 11月份</button>
+        <button class="month-btn" onclick="switchMonth('dec', this)">❄️ 12月份</button>
+      </div>
+
+      <!-- 11月圖片區 -->
+      <div id="cal-nov" class="calendar-panel active">
+        <img src="calendar.jpg" alt="11月木石天氣行事曆" class="calendar-img">
+      </div>
+
+      <!-- 12月圖片區（請確認你的12月圖檔名稱是否為 calendar_12.jpg） -->
+      <div id="cal-dec" class="calendar-panel">
+        <img src="calendar_12.jpg" alt="12月木石天氣行事曆" class="calendar-img">
+      </div>
     </div>
   </div>
 
   <script>
     let allFishData = [];
 
-    function switchTab(tabId) {
+    // 修正：將點擊按鈕本身傳入 (btnElement)，避免使用全域 event 造成部分瀏覽器相容性問題
+    function switchTab(tabId, btnElement) {
       const contents = document.querySelectorAll('.tab-content');
       contents.forEach(content => content.classList.remove('active'));
 
@@ -399,7 +447,19 @@
       buttons.forEach(btn => btn.classList.remove('active'));
 
       document.getElementById(tabId).classList.add('active');
-      event.currentTarget.classList.add('active');
+      if (btnElement) btnElement.classList.add('active');
+    }
+
+    // 新增：切換行事曆月份
+    function switchMonth(monthId, btnElement) {
+      const panels = document.querySelectorAll('.calendar-panel');
+      panels.forEach(panel => panel.classList.remove('active'));
+
+      const buttons = document.querySelectorAll('.month-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById('cal-' + monthId).classList.add('active');
+      if (btnElement) btnElement.classList.add('active');
     }
 
     async function loadFishData() {
@@ -428,8 +488,6 @@
         const card = document.createElement('div');
         card.className = 'fish-card';
         const locText = fish.locations.length > 0 ? fish.locations.join('、') : '無資料/特殊點';
-        
-        // 圖片自動路徑：images/中文魚名.webp
         const imgPath = `images/${fish.name}.webp`;
 
         card.innerHTML = `
@@ -461,7 +519,6 @@
 
       const filtered = allFishData.filter(fish => {
         const matchSearch = fish.name.toLowerCase().includes(search);
-        
         const matchLevel = selectedLevels.length === 0 || selectedLevels.includes(fish.level.toString());
         const matchWeather = selectedWeathers.length === 0 || selectedWeathers.some(w => fish.weather.includes(w));
         const matchTime = selectedTimes.length === 0 || selectedTimes.some(t => fish.time.includes(t));
