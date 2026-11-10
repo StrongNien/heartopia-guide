@@ -412,7 +412,7 @@
       <div class="coming-soon">🚧 創建中，敬請期待！</div>
     </div>
 
-    <!-- 4. 木石天氣行事曆（已更新為 11月 / 12月 切換模式） -->
+    <!-- 4. 木石天氣行事曆 -->
     <div id="calendar" class="tab-content" style="text-align: center;">
       <h2>木石與天氣行事曆</h2>
       <p style="color: #666; font-size: 14px;">收錄每日精確木石採集點、天氣、流星雨與雪景時段</p>
@@ -428,7 +428,7 @@
         <img src="calendar.jpg" alt="11月木石天氣行事曆" class="calendar-img">
       </div>
 
-      <!-- 12月圖片區（請確認你的12月圖檔名稱是否為 calendar_12.jpg） -->
+      <!-- 12月圖片區 -->
       <div id="cal-dec" class="calendar-panel">
         <img src="calendar_12.jpg" alt="12月木石天氣行事曆" class="calendar-img">
       </div>
@@ -438,7 +438,6 @@
   <script>
     let allFishData = [];
 
-    // 修正：將點擊按鈕本身傳入 (btnElement)，避免使用全域 event 造成部分瀏覽器相容性問題
     function switchTab(tabId, btnElement) {
       const contents = document.querySelectorAll('.tab-content');
       contents.forEach(content => content.classList.remove('active'));
@@ -450,7 +449,6 @@
       if (btnElement) btnElement.classList.add('active');
     }
 
-    // 新增：切換行事曆月份
     function switchMonth(monthId, btnElement) {
       const panels = document.querySelectorAll('.calendar-panel');
       panels.forEach(panel => panel.classList.remove('active'));
@@ -520,10 +518,29 @@
       const filtered = allFishData.filter(fish => {
         const matchSearch = fish.name.toLowerCase().includes(search);
         const matchLevel = selectedLevels.length === 0 || selectedLevels.includes(fish.level.toString());
-        const matchWeather = selectedWeathers.length === 0 || selectedWeathers.some(w => fish.weather.includes(w));
         const matchTime = selectedTimes.length === 0 || selectedTimes.some(t => fish.time.includes(t));
         const matchLocation = selectedLocations.length === 0 || selectedLocations.some(loc => fish.locations.includes(loc));
         const matchShadow = selectedShadows.length === 0 || selectedShadows.includes(fish.shadow);
+
+        // --- 更新後的精確天氣篩選邏輯 ---
+        let matchWeather = true;
+        if (selectedWeathers.length > 0) {
+          const hasRainOrSnowOrSunny = selectedWeathers.some(w => ['晴', '雨', '雪'].includes(w));
+          const hasRainbow = selectedWeathers.includes('彩');
+
+          if (hasRainbow && !hasRainOrSnowOrSunny) {
+            // 1. 單獨只勾「彩」：必須純粹只有彩，排除全天氣/多重天氣的魚
+            matchWeather = fish.weather.length === 1 && fish.weather.includes('彩');
+          } else if (hasRainbow && hasRainOrSnowOrSunny) {
+            // 2. 勾了「彩」又勾了其他（如 晴 + 虹）：魚的天氣必須包含彩，且其他天氣也在勾選範圍內
+            const fishMatchesAllowed = fish.weather.every(w => selectedWeathers.includes(w));
+            const fishHasRainbow = fish.weather.includes('彩');
+            matchWeather = fishMatchesAllowed && fishHasRainbow;
+          } else {
+            // 3. 正常一般天氣（晴、雨、雪）：維持標準的 OR 邏輯
+            matchWeather = fish.weather.some(w => selectedWeathers.includes(w));
+          }
+        }
 
         return matchSearch && matchLevel && matchWeather && matchTime && matchLocation && matchShadow;
       });
