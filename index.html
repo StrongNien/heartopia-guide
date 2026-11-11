@@ -507,7 +507,7 @@
       return Array.from(checkboxes).map(cb => cb.value);
     }
 
-    function filterData() {
+   function filterData() {
       const search = document.getElementById('searchInput').value.toLowerCase();
       const selectedLevels = getCheckedValues('level');
       const selectedWeathers = getCheckedValues('weather');
@@ -522,23 +522,23 @@
         const matchLocation = selectedLocations.length === 0 || selectedLocations.some(loc => fish.locations.includes(loc));
         const matchShadow = selectedShadows.length === 0 || selectedShadows.includes(fish.shadow);
 
-        // --- 更新後的精確天氣篩選邏輯 ---
+        // --- 天氣嚴格 AND 交集篩選邏輯 ---
         let matchWeather = true;
         if (selectedWeathers.length > 0) {
-          const hasRainOrSnowOrSunny = selectedWeathers.some(w => ['晴', '雨', '雪'].includes(w));
-          const hasRainbow = selectedWeathers.includes('彩');
+          // 1. 檢查這隻魚的天氣，是否「包含了所有」使用者勾選的天氣 (AND 邏輯)
+          const containsAllSelected = selectedWeathers.every(w => fish.weather.includes(w));
 
-          if (hasRainbow && !hasRainOrSnowOrSunny) {
-            // 1. 單獨只勾「彩」：必須純粹只有彩，排除全天氣/多重天氣的魚
-            matchWeather = fish.weather.length === 1 && fish.weather.includes('彩');
-          } else if (hasRainbow && hasRainOrSnowOrSunny) {
-            // 2. 勾了「彩」又勾了其他（如 晴 + 虹）：魚的天氣必須包含彩，且其他天氣也在勾選範圍內
-            const fishMatchesAllowed = fish.weather.every(w => selectedWeathers.includes(w));
-            const fishHasRainbow = fish.weather.includes('彩');
-            matchWeather = fishMatchesAllowed && fishHasRainbow;
+          // 2. 針對「只勾彩虹」的特殊處理：
+          // 如果使用者只勾了 ['彩']，必須排除掉含有晴、雨、雪的全天氣魚，只能留「只有彩」或符合純彩虹條件的
+          const isOnlyRainbow = selectedWeathers.length === 1 && selectedWeathers.includes('彩');
+          
+          if (isOnlyRainbow) {
+            // 嚴格要求魚的天氣必須只有彩，或者不包含其他普通天氣
+            const hasOtherWeather = fish.weather.some(w => ['晴', '雨', '雪'].includes(w));
+            matchWeather = fish.weather.includes('彩') && !hasOtherWeather;
           } else {
-            // 3. 正常一般天氣（晴、雨、雪）：維持標準的 OR 邏輯
-            matchWeather = fish.weather.some(w => selectedWeathers.includes(w));
+            // 一般多選（例如 晴+彩）：必須符合包含所有勾選的天氣
+            matchWeather = containsAllSelected;
           }
         }
 
