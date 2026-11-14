@@ -12,7 +12,6 @@
       --text-color: #4a3e3d;
       --border-color: #e2dcd0;
     }
-
     body {
       font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
       background-color: var(--bg-color);
@@ -20,20 +19,18 @@
       margin: 0;
       padding: 0;
     }
-
     header {
       background-color: #ffffff;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       padding: 15px 20px;
       text-align: center;
     }
-
     h1 {
       margin: 0 0 10px 0;
       color: #3d5a80;
       font-size: 24px;
     }
-
+    .sub-desc { font-size: 14px; color: #666; }
     nav {
       display: flex;
       justify-content: center;
@@ -41,7 +38,6 @@
       flex-wrap: wrap;
       margin-top: 10px;
     }
-
     nav button {
       background-color: #eef2f5;
       border: none;
@@ -53,18 +49,15 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-
     nav button:hover, nav button.active {
       background-color: var(--primary);
       color: white;
     }
-
     .container {
       max-width: 1200px;
       margin: 20px auto;
       padding: 0 15px;
     }
-
     .tab-content {
       display: none;
       background: var(--card-bg);
@@ -72,19 +65,7 @@
       padding: 20px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    .coming-soon {
-      font-size: 20px;
-      color: #888;
-      padding: 50px 0;
-      text-align: center;
-    }
-
-    /* 多選篩選區域 */
+    .tab-content.active { display: block; }
     .filter-section {
       background: #faf8f5;
       padding: 18px;
@@ -92,22 +73,16 @@
       border: 1px solid var(--border-color);
       margin-bottom: 20px;
     }
-
-    .search-input-box {
-      margin-bottom: 15px;
-    }
-
+    .search-input-box { margin-bottom: 15px; }
     .search-input-box input {
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       padding: 10px 14px;
       border: 1px solid var(--border-color);
       border-radius: 8px;
       font-size: 15px;
       outline: none;
-      box-sizing: border-box;
     }
-
     .filter-group {
       margin-bottom: 12px;
       display: flex;
@@ -115,7 +90,6 @@
       flex-wrap: wrap;
       gap: 8px;
     }
-
     .filter-title {
       font-weight: bold;
       font-size: 14px;
@@ -123,14 +97,8 @@
       min-width: 70px;
       padding-top: 4px;
     }
-
-    .filter-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      flex: 1;
-    }
-
+    .filter-options { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
+    .group-label { font-size: 12px; color: #555; width: 100%; margin-top: 4px; font-weight: bold; }
     .checkbox-btn {
       display: inline-flex;
       align-items: center;
@@ -142,57 +110,33 @@
       font-size: 13px;
       cursor: pointer;
       user-select: none;
-      transition: all 0.15s ease;
     }
-
-    .checkbox-btn input {
-      margin: 0;
-      cursor: pointer;
-      accent-color: var(--primary);
-    }
-
-    .checkbox-btn:hover {
-      border-color: var(--primary);
-      background: #f0f7f1;
-    }
-
+    .checkbox-btn input { accent-color: var(--primary); cursor: pointer; }
+    .checkbox-btn:hover { border-color: var(--primary); background: #f0f7f1; }
     .quick-tools {
       display: flex;
       justify-content: flex-end;
-      gap: 10px;
       margin-top: 10px;
       padding-top: 10px;
       border-top: 1px dashed var(--border-color);
     }
-
     .btn-small {
       background: #eef2f5;
       border: none;
-      padding: 4px 10px;
+      padding: 6px 12px;
       border-radius: 6px;
       font-size: 12px;
       cursor: pointer;
       color: #555;
     }
-
-    .btn-small:hover {
-      background: #ddd;
-    }
-
-    .status-bar {
-      margin-bottom: 15px;
-      font-size: 14px;
-      color: #666;
-      font-weight: bold;
-    }
-
-    .fish-grid {
+    .btn-small:hover { background: #ddd; }
+    .status-bar { margin-bottom: 15px; font-size: 14px; color: #666; font-weight: bold; }
+    .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 15px;
     }
-
-    .fish-card {
+    .item-card {
       background: #fff;
       border: 1px solid var(--border-color);
       border-radius: 10px;
@@ -200,9 +144,9 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.03);
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
     }
-
-    .fish-img-container {
+    .item-img-container {
       width: 100%;
       height: 140px;
       background-color: #f4f7f6;
@@ -213,22 +157,16 @@
       margin-bottom: 12px;
       overflow: hidden;
     }
-
-    .fish-img-container img {
-      max-width: 90%;
-      max-height: 90%;
-      object-fit: contain;
-    }
-
-    .fish-card h3 {
+    .item-img-container img { max-width: 90%; max-height: 90%; object-fit: contain; }
+    .item-card h3 {
       margin: 0 0 8px 0;
       color: #2b4162;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-size: 16px;
     }
-
-    .fish-level {
+    .level-badge {
       font-size: 12px;
       background: #eef2f5;
       padding: 2px 8px;
@@ -236,21 +174,47 @@
       color: #3d5a80;
       font-weight: bold;
     }
-
-    .fish-info {
-      font-size: 13px;
-      color: #555;
-      margin: 4px 0;
+    .item-info { font-size: 13px; color: #555; margin: 4px 0; line-height: 1.45; }
+    .cook-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #666;
+      background: #f4f7f6;
+      padding: 5px 8px;
+      border-radius: 6px;
+      margin-top: 8px;
     }
-
-    /* 新增：行事曆月份切換按鈕樣式 */
+    .star-price-toggle {
+      font-size: 12px;
+      color: #3d5a80;
+      background: none;
+      border: 1px dashed #cbd5e1;
+      border-radius: 6px;
+      padding: 5px 8px;
+      margin-top: 6px;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+    }
+    .star-price-toggle:hover { background: #f8fafc; }
+    .star-price-detail {
+      display: none;
+      font-size: 12px;
+      color: #555;
+      background: #faf8f5;
+      padding: 6px 8px;
+      border-radius: 6px;
+      margin-top: 4px;
+      line-height: 1.65;
+    }
+    .star-price-detail.open { display: block; }
     .month-switch {
       display: flex;
       justify-content: center;
       gap: 12px;
       margin: 15px 0 20px 0;
     }
-
     .month-btn {
       background-color: #faf8f5;
       border: 2px solid var(--border-color);
@@ -258,45 +222,17 @@
       border-radius: 12px;
       font-size: 15px;
       font-weight: bold;
-      color: var(--text-color);
       cursor: pointer;
-      transition: all 0.2s;
     }
-
-    .month-btn:hover {
-      border-color: var(--primary);
-      background-color: #f0f7f1;
-    }
-
     .month-btn.active {
       background-color: var(--primary);
       border-color: var(--primary);
       color: #ffffff;
-      box-shadow: 0 3px 8px rgba(124, 169, 130, 0.3);
     }
-
-    .calendar-panel {
-      display: none;
-    }
-
-    .calendar-panel.active {
-      display: block;
-    }
-
-    .calendar-img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .about-box {
-      font-size: 18px;
-      line-height: 1.8;
-      color: var(--text-color);
-      text-align: center;
-      padding: 20px 0;
-    }
+    .calendar-panel { display: none; }
+    .calendar-panel.active { display: block; }
+    .calendar-img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .about-box { font-size: 18px; line-height: 1.8; text-align: center; padding: 20px 0; }
   </style>
 </head>
 <body>
@@ -306,259 +242,91 @@
     <nav>
       <button class="nav-btn active" onclick="switchTab('about', this)">關於</button>
       <button class="nav-btn" onclick="switchTab('fish', this)">釣魚圖鑑</button>
-      <button class="nav-btn" onclick="switchTab('hobby', this)">愛好圖鑑</button>
+      <button class="nav-btn" onclick="switchTab('cooking', this)">烹飪圖鑑</button>
       <button class="nav-btn" onclick="switchTab('calendar', this)">木石天氣行事曆</button>
     </nav>
   </header>
 
   <div class="container">
-    <!-- 1. 關於 -->
+    <!-- 關於 -->
     <div id="about" class="tab-content active">
       <h2>關於本站</h2>
       <div class="about-box">
         <p>✨ <strong>心動小萌星 &amp; 夜悠兒</strong> 製作 ✨</p>
-        <p>專為心動小鎮玩家打造的貼心攻略與行事曆小幫手。</p>
+        <p>專為心動小鎮玩家打造的貼心攻略小幫手。</p>
       </div>
     </div>
 
-    <!-- 2. 釣魚圖鑑 -->
+    <!-- 釣魚圖鑑 -->
     <div id="fish" class="tab-content">
       <h2>心動小鎮 - 釣魚圖鑑</h2>
-      <p style="font-size: 14px; color: #666;">支援等級、天氣、時段、水域細項與魚影的自由多選勾選查詢：</p>
-
+      <p class="sub-desc">支援等級、天氣（AND 嚴格交集）、時段、水域與魚影的多選篩選：</p>
       <div class="filter-section">
         <div class="search-input-box">
-          <input type="text" id="searchInput" placeholder="🔍 搜尋魚類名稱..." oninput="filterData()">
+          <input type="text" id="fishSearchInput" placeholder="🔍 搜尋魚類名稱..." oninput="filterFishData()">
         </div>
-
         <div class="filter-group">
           <div class="filter-title">⭐ 等級：</div>
-          <div class="filter-options">
-            <script>
-              for(let i=1; i<=14; i++) {
-                document.write(`<label class="checkbox-btn"><input type="checkbox" name="level" value="${i}" onchange="filterData()"> Lv.${i}</label>`);
-              }
-            </script>
-          </div>
+          <div class="filter-options" id="fishLevelOptions"></div>
         </div>
-
         <div class="filter-group">
           <div class="filter-title">🌤️ 天氣：</div>
           <div class="filter-options">
-            <label class="checkbox-btn"><input type="checkbox" name="weather" value="晴" onchange="filterData()"> 晴天</label>
-            <label class="checkbox-btn"><input type="checkbox" name="weather" value="雨" onchange="filterData()"> 雨天</label>
-            <label class="checkbox-btn"><input type="checkbox" name="weather" value="雪" onchange="filterData()"> 雪天</label>
-            <label class="checkbox-btn"><input type="checkbox" name="weather" value="彩" onchange="filterData()"> 彩虹</label>
+            <label class="checkbox-btn"><input type="checkbox" name="fishWeather" value="晴" onchange="filterFishData()"> 晴天</label>
+            <label class="checkbox-btn"><input type="checkbox" name="fishWeather" value="雨" onchange="filterFishData()"> 雨天</label>
+            <label class="checkbox-btn"><input type="checkbox" name="fishWeather" value="雪" onchange="filterFishData()"> 雪天</label>
+            <label class="checkbox-btn"><input type="checkbox" name="fishWeather" value="彩" onchange="filterFishData()"> 彩虹</label>
           </div>
         </div>
-
         <div class="filter-group">
           <div class="filter-title">⏰ 時段：</div>
           <div class="filter-options">
-            <label class="checkbox-btn"><input type="checkbox" name="time" value="0-6" onchange="filterData()"> 0-6時</label>
-            <label class="checkbox-btn"><input type="checkbox" name="time" value="6-12" onchange="filterData()"> 6-12時</label>
-            <label class="checkbox-btn"><input type="checkbox" name="time" value="12-18" onchange="filterData()"> 12-18時</label>
-            <label class="checkbox-btn"><input type="checkbox" name="time" value="18-24" onchange="filterData()"> 18-24時</label>
+            <label class="checkbox-btn"><input type="checkbox" name="fishTime" value="0-6" onchange="filterFishData()"> 0-6時</label>
+            <label class="checkbox-btn"><input type="checkbox" name="fishTime" value="6-12" onchange="filterFishData()"> 6-12時</label>
+            <label class="checkbox-btn"><input type="checkbox" name="fishTime" value="12-18" onchange="filterFishData()"> 12-18時</label>
+            <label class="checkbox-btn"><input type="checkbox" name="fishTime" value="18-24" onchange="filterFishData()"> 18-24時</label>
           </div>
         </div>
-
-        <div class="filter-group">
-          <div class="filter-title">📍 水域：</div>
-          <div class="filter-options">
-            <span style="font-size:12px; color:#555; width:100%; margin-top:2px; font-weight:bold;">河流：</span>
-            <label class="checkbox-btn"><input type="checkbox" name="location" value="河流-巨木" onchange="filterData()"> 巨木</label>
-            <label class="checkbox-btn"><input type="checkbox" name="location" value="河流-淺水" onchange="filterData()"> 淺水</label>
-            <label class="checkbox-btn"><input type="checkbox" name="location" value="河流-霞光" onchange="filterData()"> 霞光</label>
-            <label class="checkbox-btn"><input type="checkbox" name="location" value="河流-靜" onchange="filterData()"> 靜</label>
-            
-            <span style="font-size:12px; color:#555; width:100%; margin-top:4px; font-weight:bold;">湖泊：</span>
-            <label class="checkbox-btn"><input type="checkbox" name="location" value="湖泊-城郊" onchange="filterData()"> 城郊</label>
-            <label class="checkbox-btn"><input type="checkbox" name="location" value="湖泊-草原" onchange="filterData()"> 草原</label>
-            <label class="checkbox-btn"><input type="checkbox" name="location" value="湖泊-森林" onchange="filterData()"> 森林</label>
-            <label class="checkbox-btn"><input type="checkbox" name="location" value="湖泊-溫泉山" onchange="filterData()"> 溫泉山</label>
-
-            <span style="font-size:12px; color:#555; width:100%; margin-top:4px; font-weight:bold;">海洋：</span>
-            <label class="checkbox-btn"><input type="checkbox" name="location" value="海洋-緩風" onchange="filterData()"> 緩風</label>
-            <label class="checkbox-btn"><input type="checkbox" name="location" value="海洋-東" onchange="filterData()"> 東</label>
-            <label class="checkbox-btn"><input type="checkbox" name="location" value="海洋-鯨魚" onchange="filterData()"> 鯨魚</label>
-            <label class="checkbox-btn"><input type="checkbox" name="location" value="海洋-舊" onchange="filterData()"> 舊</label>
-            <label class="checkbox-btn"><input type="checkbox" name="location" value="海洋-海釣" onchange="filterData()"> 海釣</label>
-          </div>
-        </div>
-
-        <div class="filter-group">
-          <div class="filter-title">🐟 魚影：</div>
-          <div class="filter-options">
-            <label class="checkbox-btn"><input type="checkbox" name="shadow" value="小" onchange="filterData()"> 小</label>
-            <label class="checkbox-btn"><input type="checkbox" name="shadow" value="中" onchange="filterData()"> 中</label>
-            <label class="checkbox-btn"><input type="checkbox" name="shadow" value="大" onchange="filterData()"> 大</label>
-            <label class="checkbox-btn"><input type="checkbox" name="shadow" value="金" onchange="filterData()"> 金</label>
-            <label class="checkbox-btn"><input type="checkbox" name="shadow" value="藍" onchange="filterData()"> 藍</label>
-          </div>
-        </div>
-
         <div class="quick-tools">
-          <button class="btn-small" onclick="resetAllFilters()">🔄 清除所有勾選 (顯示全部)</button>
+          <button class="btn-small" onclick="resetFishFilters()">🔄 清除所有勾選</button>
         </div>
       </div>
-
-      <div class="status-bar" id="statusBar">載入中...</div>
-      <div id="fishGrid" class="fish-grid"></div>
+      <div class="status-bar" id="fishStatusBar">載入中...</div>
+      <div id="fishGrid" class="card-grid"></div>
     </div>
 
-    <!-- 3. 愛好圖鑑 -->
-    <div id="hobby" class="tab-content">
-      <h2>愛好圖鑑</h2>
-      <div class="coming-soon">🚧 創建中，敬請期待！</div>
+    <!-- 烹飪圖鑑 -->
+    <div id="cooking" class="tab-content">
+      <h2>🍳 心動小鎮 - 烹飪圖鑑</h2>
+      <p class="sub-desc">支援料理名稱、食材反查、等級篩選與星級淨利檢視：</p>
+      <div class="filter-section">
+        <div class="search-input-box">
+          <input type="text" id="cookSearchInput" placeholder="🔍 搜尋料理名稱或食材（例如：草莓、北歐螯蝦）..." oninput="filterCookingData()">
+        </div>
+        <div class="filter-group">
+          <div class="filter-title">⭐ 等級：</div>
+          <div class="filter-options" id="cookLevelOptions"></div>
+        </div>
+        <div class="quick-tools">
+          <button class="btn-small" onclick="resetCookingFilters()">🔄 清除烹飪篩選</button>
+        </div>
+      </div>
+      <div class="status-bar" id="cookStatusBar">載入中...</div>
+      <div id="cookGrid" class="card-grid"></div>
     </div>
 
-    <!-- 4. 木石天氣行事曆 -->
+    <!-- 行事曆 -->
     <div id="calendar" class="tab-content" style="text-align: center;">
       <h2>木石與天氣行事曆</h2>
-      <p style="color: #666; font-size: 14px;">收錄每日精確木石採集點、天氣、流星雨與雪景時段</p>
-      
-      <!-- 月份切換按鈕 -->
       <div class="month-switch">
         <button class="month-btn active" onclick="switchMonth('nov', this)">📅 11月份</button>
         <button class="month-btn" onclick="switchMonth('dec', this)">❄️ 12月份</button>
       </div>
-
-      <!-- 11月圖片區 -->
-      <div id="cal-nov" class="calendar-panel active">
-        <img src="calendar.jpg" alt="11月木石天氣行事曆" class="calendar-img">
-      </div>
-
-      <!-- 12月圖片區 -->
-      <div id="cal-dec" class="calendar-panel">
-        <img src="calendar_12.jpg" alt="12月木石天氣行事曆" class="calendar-img">
-      </div>
+      <div id="cal-nov" class="calendar-panel active"><img src="calendar.jpg" alt="11月行事曆" class="calendar-img"></div>
+      <div id="cal-dec" class="calendar-panel"><img src="calendar_12.jpg" alt="12月行事曆" class="calendar-img"></div>
     </div>
   </div>
 
-  <script>
-    let allFishData = [];
-
-    function switchTab(tabId, btnElement) {
-      const contents = document.querySelectorAll('.tab-content');
-      contents.forEach(content => content.classList.remove('active'));
-
-      const buttons = document.querySelectorAll('.nav-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-
-      document.getElementById(tabId).classList.add('active');
-      if (btnElement) btnElement.classList.add('active');
-    }
-
-    function switchMonth(monthId, btnElement) {
-      const panels = document.querySelectorAll('.calendar-panel');
-      panels.forEach(panel => panel.classList.remove('active'));
-
-      const buttons = document.querySelectorAll('.month-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-
-      document.getElementById('cal-' + monthId).classList.add('active');
-      if (btnElement) btnElement.classList.add('active');
-    }
-
-    async function loadFishData() {
-      try {
-        const response = await fetch('fishData.json');
-        allFishData = await response.json();
-        renderCards(allFishData);
-      } catch (error) {
-        document.getElementById('statusBar').innerText = '無法載入 fishData.json，請確認檔案位置。';
-      }
-    }
-
-    function renderCards(data) {
-      const grid = document.getElementById('fishGrid');
-      const statusBar = document.getElementById('statusBar');
-      grid.innerHTML = '';
-
-      statusBar.innerText = `顯示筆數：${data.length} / ${allFishData.length} 筆魚類`;
-
-      if (data.length === 0) {
-        grid.innerHTML = '<p style="color: #888; grid-column: 1/-1; text-align: center;">沒有符合條件的魚類資料</p>';
-        return;
-      }
-
-      data.forEach(fish => {
-        const card = document.createElement('div');
-        card.className = 'fish-card';
-        const locText = fish.locations.length > 0 ? fish.locations.join('、') : '無資料/特殊點';
-        const imgPath = `images/${fish.name}.webp`;
-
-        card.innerHTML = `
-          <div class="fish-img-container">
-            <img src="${imgPath}" alt="${fish.name}" onerror="this.onerror=null; this.src='https://api.iconify.design/lucide:fish.svg?color=%237ca982';">
-          </div>
-          <h3>${fish.name} <span class="fish-level">Lv.${fish.level}</span></h3>
-          <p class="fish-info">🌤️ 天氣：${fish.weather.join(', ')}</p>
-          <p class="fish-info">⏰ 時間：${fish.time.join(', ')}</p>
-          <p class="fish-info">📍 地點：${locText}</p>
-          <p class="fish-info">🐟 魚影：<strong>${fish.shadow}</strong></p>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    function getCheckedValues(name) {
-      const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
-      return Array.from(checkboxes).map(cb => cb.value);
-    }
-
-   function filterData() {
-      const search = document.getElementById('searchInput').value.toLowerCase();
-      const selectedLevels = getCheckedValues('level');
-      const selectedWeathers = getCheckedValues('weather');
-      const selectedTimes = getCheckedValues('time');
-      const selectedLocations = getCheckedValues('location');
-      const selectedShadows = getCheckedValues('shadow');
-
-      const filtered = allFishData.filter(fish => {
-        const matchSearch = fish.name.toLowerCase().includes(search);
-        const matchLevel = selectedLevels.length === 0 || selectedLevels.includes(fish.level.toString());
-        const matchTime = selectedTimes.length === 0 || selectedTimes.some(t => fish.time.includes(t));
-        const matchLocation = selectedLocations.length === 0 || selectedLocations.some(loc => fish.locations.includes(loc));
-        const matchShadow = selectedShadows.length === 0 || selectedShadows.includes(fish.shadow);
-
-        // --- 天氣嚴格 AND 交集篩選邏輯 ---
-        let matchWeather = true;
-        if (selectedWeathers.length > 0) {
-          // 1. 檢查這隻魚的天氣，是否「包含了所有」使用者勾選的天氣 (AND 邏輯)
-          const containsAllSelected = selectedWeathers.every(w => fish.weather.includes(w));
-
-          // 2. 針對「只勾彩虹」的特殊處理：
-          // 如果使用者只勾了 ['彩']，必須排除掉含有晴、雨、雪的全天氣魚，只能留「只有彩」或符合純彩虹條件的
-          const isOnlyRainbow = selectedWeathers.length === 1 && selectedWeathers.includes('彩');
-          
-          if (isOnlyRainbow) {
-            // 嚴格要求魚的天氣必須只有彩，或者不包含其他普通天氣
-            const hasOtherWeather = fish.weather.some(w => ['晴', '雨', '雪'].includes(w));
-            matchWeather = fish.weather.includes('彩') && !hasOtherWeather;
-          } else {
-            // 一般多選（例如 晴+彩）：必須符合包含所有勾選的天氣
-            matchWeather = containsAllSelected;
-          }
-        }
-
-        return matchSearch && matchLevel && matchWeather && matchTime && matchLocation && matchShadow;
-      });
-
-      renderCards(filtered);
-    }
-
-    function resetAllFilters() {
-      document.getElementById('searchInput').value = '';
-      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-      checkboxes.forEach(cb => cb.checked = false);
-      renderCards(allFishData);
-    }
-
-    window.onload = function() {
-      loadFishData();
-    };
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
